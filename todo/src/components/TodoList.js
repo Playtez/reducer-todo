@@ -1,14 +1,23 @@
 import React from "react";
+import "./Todo.css";
 
-import { initialState, reducer } from "../reducers/reducer";
-
-const TodoList = () => {
-  const [todoState, dispatch] = React.useReducer(reducer, initialState);
-
+const TodoList = ({ todoState, dispatch }) => {
+  console.log({ todoState });
   return (
-    <div>
-      <h1>{todoState.item}</h1>
-    </div>
+    <>
+      {todoState.map(todo => {
+        return (
+          <div
+            key={todo.id}
+            className={todo.completed ? " toggle-on" : "toggle-off"}
+          >
+            <h1 onClick={() => dispatch({ type: "TOGGLE", payload: todo.id })}>
+              {todo.item}
+            </h1>
+          </div>
+        );
+      })}
+    </>
   );
 };
 
